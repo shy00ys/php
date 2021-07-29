@@ -10,10 +10,10 @@
 <?php 
 
 session_start();
-if (!isset($_GET['name'])){
+if(!isset($_GET['name'])){
     header('Location:index.php');
-    exit();
 }
+
 
 require 'data.php';
 $conn = new mysqli($servername, $username, $password, $db_name);
@@ -27,22 +27,26 @@ else{
 
 
 $input = $_GET['name']; //data from form 
-
 $sql = "SELECT * FROM users where name='$input' "; //sql query
 
- $result = @$conn->query($sql);
+$result = @$conn->query($sql);
 
 
-$row = $result->fetch_assoc();
-
-
-
-
-$_SESSION['name'] = $row['name'];
-
-header('Location:profile.php');
-
-
+$check_complate = $result->num_rows;
+if ($check_complate>0)
+{
+    
+    
+    
+    $row = $result->fetch_assoc();
+    $_SESSION['name'] = $row['name'];
+    $_SESSION['logged'] = true;
+    header('Location:profile.php');
+}
+else{
+    $SESSION['bad_input'];
+    header('Location:index.php');
+}
 
 
 

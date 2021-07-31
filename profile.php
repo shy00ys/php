@@ -26,6 +26,22 @@
          <input name=comment>
          <input type=submit value="post comment"/>
          <form/>
+         <?php
+         require 'data.php';
+         $connection = @new mysqli($servername, $username, $password, $db_name);
+         
+         if($connection->connect_error)
+         {
+            die($connect->connect_error)
+         }
+         else
+         {
+         $comment = $_GET['comment'];
+
+         }
+
+
+         ?>
 	<div/>
 <body/>
 <html/>
